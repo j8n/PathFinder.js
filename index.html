@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>PathFinder.js | j8n.github.io</title>
+	
+	<style>
+		*{
+			padding: 0;
+			margin: 0;
+			font-weight: 400;
+		}
+		
+		body {
+			overflow: hidden;
+		}
+		
+		.bar {
+			margin: 2px 0;
+			height: auto;
+		}
+		
+		#find-path-button {
+			position: fixed;
+			right: 0;
+			bottom: 0;
+			padding: 15px 45px;
+			margin: 8px;
+			cursor: pointer;
+			display: inline-block;
+			background-color: #808080;
+			font-size: 20px;
+			z-index: 50;
+			color: #ffffff;
+		}
+		
+		#panel {
+			position: fixed;
+			width: auto;
+			height: auto;
+			background-color: #808080;
+			z-index: 50;
+			margin: 8px;
+			color: #ffffff;
+			padding: 5px;
+			
+		}
+		
+		
+	</style>
+	
+	<script type="text/javascript" src="src/PathFinder.js"></script>
+	<script type="text/javascript" src="src/PathModeller.js"></script>
+	<script type="text/javascript" src="src/Box.js"></script>
+	<script type="text/javascript" src="src/Map.js"></script>
+	
+  
+</head>
+<body>
+	<div id="find-path-button" onclick="Find();">Find Path</div>
+	
+	<div id="panel">
+		Right click on a white grid to place wall.<br>
+		Left click to set <span style="color: #ff0000;">start position</span> <br>
+		and <span style="color: #00f050;">end position</span>.<br>
+		<div id="info"></div>
+	</div>
+	
+	<script>
+		function printInfoBox(x, y, w){
+			//return;
+			
+			theInfoBox.innerHTML = "";
+			theInfoBox.innerHTML += "x: "+x;
+			theInfoBox.innerHTML += "<br>";
+			theInfoBox.innerHTML += "y: "+y;
+			theInfoBox.innerHTML += "<br>";
+			theInfoBox.innerHTML += "is wall: "+!w;
+			theInfoBox.innerHTML += "<br>";
+
+			return;
+
+			if(startBox === null){return}
+			theInfoBox.innerHTML += "startBox x: "+startBox.x;
+			theInfoBox.innerHTML += "<br>";
+			theInfoBox.innerHTML += "startBox y: "+startBox.y;
+			theInfoBox.innerHTML += "<br>";
+			if(endBox === null){return}
+			theInfoBox.innerHTML += "endBox x: "+endBox.x;
+			theInfoBox.innerHTML += "<br>";
+			theInfoBox.innerHTML += "endBox y: "+endBox.y;
+			theInfoBox.innerHTML += "<br>";
+		}
+		
+		function Find(){
+			if(startBox === null || endBox === null){
+				return;
+			}
+			var path = thePathFinder.FindPath([startBox.x, startBox.y], [endBox.x, endBox.y]);
+			thePathModeller.showPathOnMap(path);
+			startBox = null;
+			endBox = null;
+			
+		}
+		
+		
+		var RightIsDown = false;
+		var _BoxSide = 30;
+		var theMap = null;
+		var theInfoBox = null;
+		var thePathFinder = null;
+		var thePathModeller = null;
+		var findPathButton = null;
+		var startBox = null;
+		var endBox = null;
+		
+		
+		window.onload = function(){
+			var w = window.innerWidth / _BoxSide + 1;
+			var h = window.innerHeight / _BoxSide + 1;
+			
+			theInfoBox = document.getElementById("info");
+			theMap = new Map(w, h);
+			thePathFinder = new PathFinder(theMap.boxes);
+			thePathModeller = new PathModeller(thePathFinder);
+		}
+		
+		document.body.oncontextmenu = function(e){
+			e.preventDefault();
+		}
+
+		document.body.onmousedown = function(e){
+			if(e.button === 2){
+				RightIsDown = true;
+			}
+		}
+
+		document.body.onmouseup = function(e){
+			if(e.button === 2){
+				RightIsDown = false;
+			}
+		}
+
+
+	</script>
+</body>
+</html>

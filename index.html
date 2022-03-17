@@ -44,16 +44,12 @@
 			padding: 5px;
 			
 		}
-		
-		
 	</style>
 	
 	<script type="text/javascript" src="src/PathFinder.js"></script>
 	<script type="text/javascript" src="src/PathModeller.js"></script>
 	<script type="text/javascript" src="src/Box.js"></script>
 	<script type="text/javascript" src="src/Map.js"></script>
-	
-  
 </head>
 <body>
 	<div id="find-path-button" onclick="Find();">Find Path</div>
@@ -98,10 +94,8 @@
 			var path = thePathFinder.FindPath([startBox.x, startBox.y], [endBox.x, endBox.y]);
 			thePathModeller.showPathOnMap(path);
 			startBox = null;
-			endBox = null;
-			
+			endBox = null;	
 		}
-		
 		
 		var RightIsDown = false;
 		var _BoxSide = 30;
@@ -112,7 +106,6 @@
 		var findPathButton = null;
 		var startBox = null;
 		var endBox = null;
-		
 		
 		window.onload = function(){
 			var w = window.innerWidth / _BoxSide + 1;
@@ -139,8 +132,6 @@
 				RightIsDown = false;
 			}
 		}
-
-
 	</script>
 </body>
 </html>

@@ -9,8 +9,7 @@ function Box(x,y,parent){
 	this.defaultColor = "#ffffff";
 	this.hoverColor = "#a0c0e0";
 	this.notWalkableColor = "#303030";
-
-
+	
 	this.elem = document.createElement("div");
 	this.elem.style.position = "absolute";
 	this.elem.style.boxSizing = "border-box";
@@ -23,9 +22,7 @@ function Box(x,y,parent){
 	this.elem.setAttribute("x",this.x);
 	this.elem.setAttribute("y", this.y);
 	parent.appendChild(this.elem);
-
-
-
+	
 	this.elem.onmouseover = function(){
 		this.style.border = "2px solid #606060";
 		printInfoBox(self.x, self.y, self.node.isWalkable);
@@ -35,10 +32,10 @@ function Box(x,y,parent){
 			self.setColors();
 		}
 	}
+	
 	this.elem.onmouseout = function(){
 		this.style.border = "0.5px solid #808080";
 	}
-
 
 	this.setSEBoxes = function(){
 		if(!this.node.isWalkable){
@@ -53,31 +50,26 @@ function Box(x,y,parent){
 		}else{
 			endBox = this.node;
 		}
-		//console.log("boxes set");
-	
+		//console.log("boxes set");	
 	}
-
 
 	this.setWalkable = function(){
 		this.isWalkable = (this.isWalkable) ? false : true;
 		this.node.isWalkable = this.isWalkable;
 		//console.log("walkable set");
 	}
-
-
+	
 	this.setColors = function(){
 		this.defaultColor = "#ffffff";
 
 		if(!this.node.isWalkable){
 			this.defaultColor = "#606060";
-
 		}
 
 		if(this.node === startBox){
 			this.defaultColor = "#f00050";
 		}
-
-
+		
 		if(this.node === endBox){
 			this.defaultColor = "#00f050";
 		}
@@ -85,8 +77,7 @@ function Box(x,y,parent){
 		this.elem.style.backgroundColor = this.defaultColor;
 		//console.log("colors set");
 	}
-
-
+	
 	this.elem.onmousedown = function(e){
 		// left button
 		if(e.button === 0){
@@ -101,6 +92,4 @@ function Box(x,y,parent){
 		theMap.resetAll();
 		printInfoBox(self.x, self.y, self.node.isWalkable);
 	}
-	
-	
 };

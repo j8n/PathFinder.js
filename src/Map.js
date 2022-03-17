@@ -4,7 +4,6 @@ function Map(width, height){
 	this.width = width;
 	this.height = height;
 
-
 	this.createMap = function(){
 		this.elem = document.createElement("div");
 		this.elem.style.position = "relative";
@@ -41,10 +40,7 @@ function Map(width, height){
 			b.setColors();
 		}
 	}
-
-
-
-
+	
 	this.createMap();
 	this.createBoxes();
 };
